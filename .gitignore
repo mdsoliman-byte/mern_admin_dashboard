@@ -1,0 +1,4 @@
+/server/node_modules
+/clinte/node_modules
+/clinte/.env
+/server/.env
