@@ -1,9 +1,9 @@
-import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import morgan from "morgan";
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
@@ -28,3 +28,14 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
+// MONGOOSE SETUP 
+const PORT = process.env.PORT;
+const url = process.env.MONGO_URL
+const db = process.env.DB_NAME
+mongoose.set('strictQuery', false)
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    app.listen(PORT, () => console.log(`SERVER PORT :${PORT}`))
+}).catch((error) => console.log(`${error} did not connect`))
